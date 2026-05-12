@@ -342,14 +342,14 @@ def get_sheet_data():
     try:
         scope = ['https://www.googleapis.com/auth/spreadsheets.readonly']
         try:
-            creds_dict = json.loads(st.secrets["google_credentials"])
+            creds_dict = st.secrets["google_credentials"]
         except Exception:
             with open('service_account.json', 'r') as f:
                 creds_dict = json.load(f)
 
         credentials = Credentials.from_service_account_info(creds_dict, scopes=scope)
         gc = gspread.authorize(credentials)
-        spreadsheet_id = os.getenv("SPREADSHEET_ID")
+        spreadsheet_id = st.secrets["SPREADSHEET_ID"]
         sheet = gc.open_by_key(spreadsheet_id).worksheet("Procurment_Backup")
         all_data = sheet.get_all_values()
 
