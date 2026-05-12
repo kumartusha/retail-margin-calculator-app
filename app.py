@@ -349,7 +349,7 @@ def get_sheet_data():
 
         credentials = Credentials.from_service_account_info(creds_dict, scopes=scope)
         gc = gspread.authorize(credentials)
-        spreadsheet_id = st.secrets["SPREADSHEET_ID"]
+        spreadsheet_id = st.secrets["google_credentials"]["SPREADSHEET_ID"]
         sheet = gc.open_by_key(spreadsheet_id).worksheet("Procurment_Backup")
         all_data = sheet.get_all_values()
 
